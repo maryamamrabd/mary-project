@@ -1,12 +1,14 @@
 <?php
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasName
 {
     protected $fillable = [
         'full_name',
@@ -44,8 +46,8 @@ class User extends Authenticatable
         return $this->hasMany(Appointment::class);
     }
 
-    // public function optician_appointments(): HasMany
-    // {
-    //     return $this->hasMany(Appointment::class, 'optician_id');
-    // }
+    public function getFilamentName(): string
+    {
+        return "{$this->full_name}";
+    }
 }

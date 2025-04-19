@@ -14,7 +14,7 @@ Route::get('/', function () {
     return view('welcome'); // Ensure 'resources/views/welcome.blade.php' exists
 });
 
-// Authentication Routes
+// Authentication Routes 
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);

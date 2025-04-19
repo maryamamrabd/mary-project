@@ -23,25 +23,40 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('category_id')
-                    ->relationship('category', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('price')
-                    ->required()
-                    ->numeric()
-                    ->prefix('$'),
-                Forms\Components\Textarea::make('description')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('content')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'id')
-                    ->required(),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->label("Produit")
+                            ->maxLength(255),
+                        Forms\Components\Select::make('category_id')
+                            ->label("Categorie")
+                            ->relationship('category', 'name')
+                            ->required(),
+                        Forms\Components\TextInput::make('price')
+                            ->label("Prix")
+                            ->required()
+                            ->numeric()
+                            ->prefix(' MAD'),
+                        Forms\Components\Textarea::make('description')
+                            ->required()
+                            ->columnSpanFull(),
+                        Forms\Components\RichEditor::make('content')
+                            ->required()
+                            ->columnSpanFull(),
+                    ])->columns(2),
+
+                Forms\Components\Repeater::make('images')
+                    ->relationship('images')
+                    ->grid(3)
+                    ->schema([
+                        Forms\Components\FileUpload::make('path')
+                            ->label("Image")
+                            ->image()
+                            ->columnSpan(1)
+                            ->required(),
+                    ])->columnSpanFull()
+
             ]);
     }
 
@@ -50,24 +65,21 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label("Produit")
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
+                    ->label("Categorie")
+                    // ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    ->label("Prix")
+                    ->money( "MAD ")
                     ->sortable(),
-                Tables\Columns\TextColumn::make('user.id')
+                Tables\Columns\TextColumn::make('user.full_name')
+                    ->label("Créé par")
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

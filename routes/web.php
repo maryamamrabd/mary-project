@@ -10,21 +10,27 @@ use App\Http\Controllers\AdviceController;
 use App\Http\Controllers\ContactController;
 
 // Home Route
-Route::get('/', function () {
-    return view('welcome'); // Ensure 'resources/views/welcome.blade.php' exists
-});
+Route::get('/', [ProductController::class, 'index'])->name("home");
+
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+
+
+// Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+
+
 
 // Authentication Routes
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'registerStore'])->name('register.store');
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'loginStore'])->name('login.store');
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Product Routes
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create'); // Ensure 'create' method exists
-Route::get('/products', [ProductController::class, 'index'])->name('products.index'); // Ensure 'index' method exists
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show'); // Ensure 'show' method exists
 Route::get('/products/filter', [ProductController::class, 'filter'])->name('products.filter'); // Ensure 'filter' method exists
 
@@ -43,6 +49,6 @@ Route::post('/appointments', [AppointmentController::class, 'store'])->name('app
 // Advice Routes
 Route::get('/advice', [AdviceController::class, 'index'])->name('advice.index'); // Ensure 'index' method exists
 
-// Contact Routes
-Route::get('/contact', [ContactController::class, 'showForm'])->name('contact'); // Ensure 'showForm' method exists
-Route::post('/contact', [ContactController::class, 'send'])->name('contact.send'); // Ensure 'send' method exists
+
+Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

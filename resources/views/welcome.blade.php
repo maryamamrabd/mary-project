@@ -1,276 +1,445 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the Eyewear Store Website</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+@extends('layouts.app')
 
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, #1E90FF, #4682B4); /* Blue gradient background */
-            color: white;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
 
-        /* Navigation Bar */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(30, 144, 255, 0.9); /* Semi-transparent blue */
-            padding: 10px 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        header nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        header nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-
-        header nav a:hover {
-            background: #87CEFA;
-            color: #1E90FF;
-        }
-
-        /* Decorative Background Circles */
-        .background-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: -1;
-            animation: floatY 6s ease-in-out infinite;
-        }
-
-        .background-circle:nth-child(1) {
-            width: 400px;
-            height: 400px;
-            top: 10%;
-            left: 15%;
-        }
-
-        .background-circle:nth-child(2) {
-            width: 300px;
-            height: 300px;
-            bottom: 15%;
-            right: 10%;
-        }
-
-        .background-circle:nth-child(3) {
-            width: 200px;
-            height: 200px;
-            top: 50%;
-            left: 70%;
-        }
-
-        /* Main Content */
-        section#home {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            padding: 20px;
-        }
-
-        section#home .content h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-            animation: fadeInDown 1.5s ease-in-out;
-        }
-
-        section#home .content p {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            line-height: 1.8;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            animation: fadeInUp 1.5s ease-in-out;
-        }
-
-        section#home .btn {
-            background: linear-gradient(90deg, #00BFFF, #1E90FF); /* Blue gradient button */
-            color: white;
-            text-decoration: none;
-            font-size: 1.5rem;
-            padding: 15px 40px;
-            border-radius: 50px;
-            transition: all 0.3s ease-in-out;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            animation: bounceIn 2s ease-in-out;
-        }
-
-        section#home .btn:hover {
-            background: linear-gradient(90deg, #87CEEB, #4682B4);
-            transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* About Section */
-        section#about {
-            background: #F0F8FF; /* Light blue background */
-            color: #333;
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        section#about h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #1E90FF;
-        }
-
-        section#about p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 1rem;
-        }
-
-        footer p {
-            margin: 5px 0;
-        }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounceIn {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-20px);
-            }
-            60% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @keyframes floatY {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            header nav a {
-                font-size: 1rem;
-            }
-
-            section#home .content h1 {
-                font-size: 2.5rem;
-            }
-
-            section#home .content p {
-                font-size: 1.2rem;
-            }
-
-            section#home .btn {
-                font-size: 1.2rem;
-                padding: 10px 25px;
-            }
-
-            section#about p {
-                font-size: 1rem;
-            }
-
-            .background-circle {
-                display: none; /* Hide background circles on smaller screens */
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Background Decorative Elements -->
-    <div class="background-circle"></div>
-    <div class="background-circle"></div>
-    <div class="background-circle"></div>
-
-    <!-- Navigation Bar -->
-    <header>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About Us</a>
-            <a href="{{ route('products.index') }}">Products</a>
-            <a href="#contact">Contact Us</a>
-        </nav>
-    </header>
-
-    <!-- Main Content -->
-    <section id="home">
-        <div class="content">
-            <h1>Welcome to the Eyewear Store Website</h1>
-            <p>We provide the latest eyewear and lenses at the best prices. <br> Book your appointment now or browse the products.</p>
-            <a href="{{ route('products.index') }}" class="btn">Browse Products</a>
+@section('content')
+    <div class=" mt-12">
+        <h1 class="text-3xl font-bold text-center mb-8">Collection de Lunettes Haut de Gamme</h1>
+        <!-- Filtres -->
+        <div class="mt-8 bg-white p-4 rounded-lg shadow-sm border border-gray-300">
+            <h3 class="text-lg font-semibold mb-4">Options de Filtrage</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Categories</label>
+                    <select class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        <option>Toutes les Formes</option>
+                        <option>Carrée</option>
+                        <option>Ronde</option>
+                        <option>Œil de Chat</option>
+                        <option>Rectangulaire</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Gamme de Prix</label>
+                    <select class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        <option>Tous les Prix</option>
+                        <option>Moins de 100 MAD</option>
+                        <option>100 MAD - 150 MAD</option>
+                        <option>Plus de 150 MAD</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Couleur de la Monture</label>
+                    <div class="flex space-x-2">
+                        <button class="w-6 h-6 rounded-full bg-black"></button>
+                        <button class="w-6 h-6 rounded-full bg-amber-800"></button>
+                        <button class="w-6 h-6 rounded-full bg-green-600"></button>
+                        <button class="w-6 h-6 rounded-full bg-red-500"></button>
+                        <button class="w-6 h-6 rounded-full bg-blue-600"></button>
+                        <button class="w-6 h-6 rounded-full bg-pink-300"></button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="about-content">
-            <h2>About Us</h2>
-            <p>We specialize in providing the best optical solutions, whether it's prescription glasses, sunglasses, or contact lenses. Our goal is to enhance your visual experience.</p>
+        <div class="grid grid-cols-1 rounded-lg md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+            <!-- Product 1 -->
+          @foreach ($products as $product)
+        <div class="bg-white overflow-hidden transition duration-300 hover:shadow-xl">
+            <div class="relative">
+                {{-- <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold"> -69%
+                </div> --}}
+                <img src="{{ Storage::url($product->images?->first()?->path) }}"
+                    alt="{{ $product->name }}" class="w-full h-64 object-contain p-4" />
+                <button class="absolute top-2 right-2 text-blue-500 hover:text-blue-700">
+                    <i class="far fa-heart text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-lg font-semibold">{{ $product->name }}</h2>
+                    <span class="text-gray-500 text-sm">{{ $product->category->name }}</span>
+                </div>
+
+                <div class="flex space-x-2 mb-4">
+                    <span class="w-5 h-5 rounded-full bg-green-500 border border-gray-300"></span>
+                    <span class="w-5 h-5 rounded-full bg-amber-700 border border-gray-300"></span>
+                    <span class="w-5 h-5 rounded-full bg-black border border-gray-300"></span>
+                    <span class="w-5 h-5 rounded-full bg-pink-300 border border-gray-300"></span>
+                    <span class="w-5 h-5 rounded-full bg-red-500 border border-gray-300"></span>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-xl font-bold">{{ $product->price }} MAD</span>
+                        <span class="text-gray-500 line-through text-sm ml-2">599 MAD</span>
+                    </div>
+                    <a href="{{ route('products.show', $product->id) }}"
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition font-semibold">
+                        Voir Plus
+                    </a>
+                </div>
+            </div>
         </div>
-    </section>
+        @endforeach
 
-    <!-- Footer -->
-    <footer id="contact">
-        <p>© {{ date('Y') }} Eyewear Store. All rights reserved.</p>
-        <p>Contact us: contact@example.com | 123-456-7890</p>
-    </footer>
-</body>
-</html>
+
+            <!-- Product 2 -->
+            <div class="bg-white overflow-hidden transition duration-300 hover:shadow-xl">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                        -52%</div>
+                    <img src="https://df5apg8r0m634.cloudfront.net/p/8943/middle-1-bd0111e2eed9daa01279e0cb636349f2.webp" alt="Black Square Glasses" class="w-full h-64 object-contain p-4" />
+                    <button class="absolute top-2 right-2 text-blue-500 hover:text-blue-700">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold">Grace20210</h2>
+                        <span class="text-gray-500 text-sm">44 Reviews</span>
+                    </div>
+
+                    <div class="flex space-x-2 mb-4">
+                        <span class="w-5 h-5 rounded-full bg-black border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-amber-700 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-pink-500 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-red-800 border border-gray-300"></span>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xl font-bold">€13,00</span>
+                            <span class="text-gray-500 line-through text-sm ml-2">€26,90</span>
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition">Try
+                            Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="bg-white overflow-hidden transition duration-300 hover:shadow-xl">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                        -65%</div>
+                    <img src="https://df5apg8r0m634.cloudfront.net/p/8943/middle-1-bd0111e2eed9daa01279e0cb636349f2.webp" alt="Black Modern Glasses" class="w-full h-64 object-contain p-4" />
+                    <button class="absolute top-2 right-2 text-blue-500 hover:text-blue-700">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold">MT04577</h2>
+                        <span class="text-gray-500 text-sm">35 Reviews</span>
+                    </div>
+
+                    <div class="flex space-x-2 mb-4">
+                        <span class="w-5 h-5 rounded-full bg-amber-700 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-green-600 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-blue-600 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-pink-300 border border-gray-300"></span>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xl font-bold">€9,00</span>
+                            <span class="text-gray-500 line-through text-sm ml-2">€25,90</span>
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition">Try
+                            Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="bg-white overflow-hidden transition duration-300 hover:shadow-xl">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                        -65%</div>
+                    <img src="https://df5apg8r0m634.cloudfront.net/p/8943/middle-1-bd0111e2eed9daa01279e0cb636349f2.webp" alt="Tortoise Shell Glasses"
+                        class="w-full h-64 object-contain p-4" />
+                    <button class="absolute top-2 right-2 text-blue-500 hover:text-blue-700">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold">AC53591</h2>
+                        <span class="text-gray-500 text-sm">10 Reviews</span>
+                    </div>
+
+                    <div class="flex space-x-2 mb-4">
+                        <span class="w-5 h-5 rounded-full bg-black border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-red-800 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-pink-500 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-green-600 border border-gray-300"></span>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xl font-bold">€10,00</span>
+                            <span class="text-gray-500 line-through text-sm ml-2">€28,99</span>
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition">Try
+                            Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="bg-white overflow-hidden transition duration-300 hover:shadow-xl">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                        -80%</div>
+                    <img src="https://df5apg8r0m634.cloudfront.net/p/8943/middle-1-bd0111e2eed9daa01279e0cb636349f2.webp" alt="Black Square Glasses" class="w-full h-64 object-contain p-4" />
+                    <button class="absolute top-2 right-2 text-blue-500 hover:text-blue-700">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold">TR62168</h2>
+                        <span class="text-gray-500 text-sm">14 Reviews</span>
+                    </div>
+
+                    <div class="flex space-x-2 mb-4">
+                        <span class="w-5 h-5 rounded-full bg-blue-800 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-red-800 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-purple-800 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-gray-400 border border-gray-300"></span>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xl font-bold">€5,00</span>
+                            <span class="text-gray-500 line-through text-sm ml-2">€24,99</span>
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition">Try
+                            Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="bg-white overflow-hidden transition duration-300 hover:shadow-xl">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                        -44%</div>
+                    <img src="https://df5apg8r0m634.cloudfront.net/p/8943/middle-1-bd0111e2eed9daa01279e0cb636349f2.webp" alt="Black Bold Glasses" class="w-full h-64 object-contain p-4" />
+                    <button class="absolute top-2 right-2 text-blue-500 hover:text-blue-700">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold">Cathy001</h2>
+                        <span class="text-gray-500 text-sm">14 Reviews</span>
+                    </div>
+
+                    <div class="flex space-x-2 mb-4">
+                        <span class="w-5 h-5 rounded-full bg-black border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-gray-600 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-red-900 border border-gray-300"></span>
+                        <span class="w-5 h-5 rounded-full bg-amber-900 border border-gray-300"></span>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xl font-bold">€15,00</span>
+                            <span class="text-gray-500 line-through text-sm ml-2">€26,99</span>
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition">Try
+                            Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center mt-8">
+            {{ $products->links() }}
+        </div>
+
+
+        {{-- Influencer Picks Section --}}
+        <div class="w-full max-w-full mx-auto">
+            {{-- Title Section --}}
+            <div class="w-full mt-6">
+                <div class="w-full">
+                    <h2 class="text-2xl text-center text-gray-800 font-medium">Influencer Picks</h2>
+                </div>
+            </div>
+
+            {{-- Text Section --}}
+            <div class="w-full mt-12">
+                <div class="w-full -mb-12">
+                    <div class="w-full">
+                        <p class="text-center text-sm text-gray-700">Obtenez une chance d'être présenté, veuillez nous taguer
+                            sur nos réseaux sociaux.</p>
+                        <p class="text-center text-sm text-blue-500">#firmoofr #firmoofrance</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Carousel Section --}}
+            <div class="w-full mt-10 relative overflow-hidden">
+                <div class="carousel-container w-full pb-10">
+                    <div class="swiper-wrapper flex">
+                        {{-- Slide 1 --}}
+                        <div class="swiper-slide w-1/5">
+                            <div class="w-full">
+                                <a href="https://www.firmoo.fr/eyeglasses-p-4875.html?color=12165" target="_blank"
+                                    class="block w-full">
+                                    <img src="https://df5apg8r0m634.cloudfront.net/images/2024/0103/ba0530a0439ea4af2fdd5b17025fce13.jpg"
+                                        class="w-full p-1" alt="Eyeglasses">
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Slide 2 --}}
+                        <div class="swiper-slide w-1/5">
+                            <div class="w-full">
+                                <a href="https://www.firmoo.fr/sunglasses-p-7609.html?color=19112" target="_blank"
+                                    class="block w-full">
+                                    <img src="https://df5apg8r0m634.cloudfront.net/images/2024/0103/ef0cd677da305f83b788e00d6d1eda6d.jpg"
+                                        class="w-full p-1" alt="Sunglasses">
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Slide 3 --}}
+                        <div class="swiper-slide w-1/5">
+                            <div class="w-full">
+                                <a href="https://www.firmoo.fr/eyeglasses-p-6993.html?color=17270" target="_blank"
+                                    class="block w-full">
+                                    <img src="https://df5apg8r0m634.cloudfront.net/images/2024/0103/2035b3fd8e094946274816d1a7c64420.jpg"
+                                        class="w-full p-1" alt="Eyeglasses">
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Slide 4 --}}
+                        <div class="swiper-slide w-1/5">
+                            <div class="w-full">
+                                <a href="https://www.firmoo.fr/sunglasses-p-6050.html?color=14630" target="_blank"
+                                    class="block w-full">
+                                    <img src="https://df5apg8r0m634.cloudfront.net/images/2024/0103/9b1a0f2b5f16014fcd712e2a48bcfd6e.jpg"
+                                        class="w-full p-1" alt="Sunglasses">
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Slide 5 --}}
+                        <div class="swiper-slide w-1/5">
+                            <div class="w-full">
+                                <a href="https://www.firmoo.fr/eyeglasses-p-6238.html?color=15282" target="_blank"
+                                    class="block w-full">
+                                    <img src="https://df5apg8r0m634.cloudfront.net/images/2024/0103/18cbd5718b49ec841e448acc834475f8.jpg"
+                                        class="w-full p-1" alt="Eyeglasses">
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Slide 6 --}}
+                        <div class="swiper-slide w-1/5">
+                            <div class="w-full">
+                                <a href="https://www.firmoo.fr/sunglasses-p-9138.html?color=24045" target="_blank"
+                                    class="block w-full">
+                                    <img src="https://df5apg8r0m634.cloudfront.net/images/2024/0103/9a3d5c9e21e72d5620df3f32957ea9ea.jpg"
+                                        class="w-full p-1" alt="Sunglasses">
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Slide 7 --}}
+                        <div class="swiper-slide w-1/5">
+                            <div class="w-full">
+                                <a href="https://www.firmoo.fr/eyeglasses-p-6238.html?color=15282" target="_blank"
+                                    class="block w-full">
+                                    <img src="https://df5apg8r0m634.cloudfront.net/images/2024/0103/b2c92110492fb38a91ed877ee6045d4c.jpg"
+                                        class="w-full p-1" alt="Eyeglasses">
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Slide 8 --}}
+                        <div class="swiper-slide w-1/5">
+                            <div class="w-full">
+                                <a href="https://www.firmoo.fr/sunglasses-p-7610.html?color=19115" target="_blank"
+                                    class="block w-full">
+                                    <img src="https://df5apg8r0m634.cloudfront.net/images/2024/0103/30be1253c6b2627142ad5b4a8c5edb83.jpg"
+                                        class="w-full p-1" alt="Sunglasses">
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Slide 9 --}}
+                        <div class="swiper-slide w-1/5">
+                            <div class="w-full">
+                                <a href="https://www.firmoo.fr/eyeglasses-p-4526.html?color=9625" target="_blank"
+                                    class="block w-full">
+                                    <img src="https://df5apg8r0m634.cloudfront.net/images/2024/0103/ae5a5dd1190a9c697d5cf6ae526f022b.jpg"
+                                        class="w-full p-1" alt="Eyeglasses">
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Slide 10 --}}
+                        <div class="swiper-slide w-1/5">
+                            <div class="w-full">
+                                <a href="https://www.firmoo.fr/eyeglasses-p-8711.html?color=22631" target="_blank"
+                                    class="block w-full">
+                                    <img src="https://df5apg8r0m634.cloudfront.net/images/2024/0103/7628ca3a5c3a9cce501c8c418c74ddf2.jpg"
+                                        class="w-full p-1" alt="Eyeglasses">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Pagination --}}
+                    <div class="swiper-pagination absolute left-1/2 transform -translate-x-1/2 pt-5"></div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Swiper JS Initialization --}}
+        @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                new Swiper('.carousel-container', {
+                    autoplay: false,
+                    loop: false,
+                    slidesPerView: 5,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true
+                    },
+                    // Responsive breakpoints for mobile/tablet
+                    breakpoints: {
+                        // When window width is <= 640px (mobile)
+                        640: {
+                            slidesPerView: 2,
+                        },
+                        // When window width is <= 768px (tablet)
+                        768: {
+                            slidesPerView: 3,
+                        },
+                        // When window width is <= 1024px (small desktop)
+                        1024: {
+                            slidesPerView: 4,
+                        },
+                    }
+                });
+            });
+        </script>
+        @endpush
+
+
+    </div>
+@endsection

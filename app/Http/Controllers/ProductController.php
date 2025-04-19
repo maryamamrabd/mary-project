@@ -11,15 +11,16 @@ class ProductController extends Controller
        // Show all products
     public function index()
     {
-        $products = Product::all();
-        return view('products.index', compact('products')); // Ensure 'resources/views/products/index.blade.php' exists
+        $products = Product::orderByDesc('updated_at')->paginate(9);
+        return view('welcome', compact('products'));
     }
 
     // Show a single product by ID
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.show', compact('product')); // Ensure 'resources/views/products/show.blade.php' exists
+        $title = $product->name;
+        return view('products.show', compact('product', 'title'));
     }
 
     // Show the form to create a new product

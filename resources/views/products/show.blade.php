@@ -5,7 +5,7 @@
     <div class="max-w-screen-xl px-4 mx-auto">
         <div class="mb-6">
             <!-- Fil d’Ariane -->
-            <nav class="text-sm text-gray-600 dark:text-gray-400" aria-label="Breadcrumb">
+            <nav class="text-sm text-gray-600" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 font-semibold">
                     <li><a href="/" class="hover:underline">Accueil</a></li>
                     <li>/</li>
@@ -19,21 +19,17 @@
         <div class="grid gap-8 lg:grid-cols-2">
             <!-- Images -->
             <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
-                <img class="w-full rounded-lg mb-4 dark:hidden"
-                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
-                    alt="{{ $product->name }}" />
-                <img class="w-full rounded-lg hidden dark:block"
-                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
-                    alt="{{ $product->name }}" />
-
+                    @foreach ($product->images as $image)
+                        <img class="w-full rounded-lg" src="{{ Storage::url($image->path) }}" alt="{{ $product->name }}" />
+                    @endforeach
                 <!-- Vignettes -->
-                <div class="flex gap-2 mt-4">
+                {{-- <div class="flex gap-2 mt-4">
                     @foreach([1,2,3,4] as $thumb)
                     <button class="w-16 h-16 border rounded-lg overflow-hidden hover:ring-2 hover:ring-blue-500">
                         <img src="https://via.placeholder.com/150?text=Img+{{ $thumb }}" alt="Vignette {{ $thumb }}">
                     </button>
                     @endforeach
-                </div>
+                </div> --}}
             </div>
 
             <!-- Détails -->
@@ -44,7 +40,7 @@
 
                     <div class="flex gap-2 justify-between">
                         <div>
-                            <p class="mt-2 text-2xl text-blue-600 dark:text-blue-400 font-semibold">
+                            <p class="mt-2 text-2xl text-blue-600 font-semibold">
                                 {{ number_format($product->price, 2) }} MAD
                             </p>
                             <p class="mt-1 text-sm text-green-600 font-medium">En stock</p>
@@ -59,7 +55,7 @@
                                     </svg>
                                     @endfor
                             </div>
-                            <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">(4,8)</span>
+                            <span class="ml-2 text-sm text-gray-600">(4,8)</span>
                         </div>
                     </div>
 
@@ -82,7 +78,7 @@
                         Ajouter au panier
                     </button>
                     <button
-                        class="w-full inline-flex justify-center items-center px-5 py-3 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700">
+                        class="w-full inline-flex justify-center items-center px-5 py-3 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 text-gray-700 ">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                                 d="M20.8 4.6a5.6 5.6 0 00-7.9 0L12 5.5l-1-1a5.6 5.6 0 00-7.9 7.9l1 1L12 21l7.9-7.9 1-1a5.6 5.6 0 000-7.9z" />
@@ -93,18 +89,18 @@
                 </div>
 
                 <!-- Livraison & Retours -->
-                <div class="text-sm text-gray-600 dark:text-gray-400">
+                <div class="text-sm text-gray-600">
                     <p>🚚 Livraison standard gratuite dès 50 € d’achat</p>
                     <p>🔄 Retour possible sous 30 jours</p>
                 </div>
 
                 <!-- Tags & Partage -->
-                <div class="flex flex-wrap items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                <div class="flex flex-wrap items-center space-x-2 text-sm text-gray-500">
                     <span>Tags :</span>
-                    @foreach(['Technologie','Apple','Ordinateur','Nouveau'] as $tag)
-                    <a href="#"
-                        class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">{{
-                        $tag }}</a>
+                    @foreach($categories as $category)
+                    <a href="#" class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">
+                        {{ $category->name }}
+                    </a>
                     @endforeach
                     <div class="ml-auto flex space-x-3">
                         <a href="#" aria-label="Partager sur Twitter"><i class="fab fa-twitter"></i></a>
@@ -119,7 +115,7 @@
 
                 <!-- Plus de détails -->
                 <a href=""
-                    class="inline-block mt-4 text-sm font-medium text-blue-600 hover:underline dark:text-blue-400">
+                    class="inline-block mt-4 text-sm font-medium text-blue-600 hover:underline">
                     Voir les spécifications complètes &rarr;
                 </a>
             </div>

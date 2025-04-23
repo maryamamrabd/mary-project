@@ -35,9 +35,13 @@ Route::get('/products/{id}', [ProductController::class, 'show'])->name('products
 Route::get('/products/filter', [ProductController::class, 'filter'])->name('products.filter'); // Ensure 'filter' method exists
 
 // Cart Routes
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index'); // Ensure 'index' method exists
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add'); // Ensure 'add' method exists
-Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove'); // Ensure 'remove' method exists
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{rowId}', [CartController::class, 'add'])->name('cart.add');
+Route::delete('/cart/remove/{rowId}', [CartController::class, 'remove'])->name('cart.remove');
+Route::patch('/cart/update/{rowId}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+Route::post('/cart/process', [CartController::class, 'process'])->name('cart.process');
+Route::get('/cart/confirmation/{rowId}', [CartController::class, 'confirmation'])->name('cart.confirmation');
 
 // Order Routes
 Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout'); // Ensure 'checkout' method exists

@@ -19,6 +19,11 @@ class AppointmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';// Katdir icône calendar f menu (sidebar) dyal admin.
 
+    public static function getModelLabel(): string
+    {
+        return "Rendez-vous";
+    }
+
     public static function form(Form $form): Form
     {
         return $form

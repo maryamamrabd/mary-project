@@ -19,6 +19,11 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
+    public static function getModelLabel(): string
+    {
+        return "Produits";
+    }
+
     public static function form(Form $form): Form
     {
         return $form

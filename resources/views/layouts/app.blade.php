@@ -15,13 +15,33 @@
 </head>
 
 <body>
-<nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200">
+<nav class="bg-gray-100 fixed w-full z-20 top-0 start-0 border-b border-gray-200">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Logo Optics">
             <span class="self-center text-2xl font-semibold whitespace-nowrap">Optics</span>
         </a>
-        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-4">
+            <a href="{{ route('cart.index') }}"
+                class="text-gray-600 items-center flex gap-4 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center relative">
+                <span>Panier</span>
+                <div class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                        <path d="M17 17h-11v-14h-2" />
+                        <path d="M6 5l14 1l-1 7h-13" />
+                    </svg>
+                    <!-- Badge showing number of items in cart -->
+                    <span
+                        class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-medium rounded-full h-5 w-5 flex items-center justify-center">
+                        {{ \Gloudemans\Shoppingcart\Facades\Cart::count() }}
+                    </span>
+                </div>
+            </a>
             @if (auth()->user())
             <button type="button" data-dropdown-toggle="language-dropdown-menu"
                 class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100">
@@ -43,6 +63,7 @@
 
             @endif
 
+
             <a href="/menu" data-collapse-toggle="navbar-sticky" type="button"
                 class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                 aria-controls="navbar-sticky" aria-expanded="false">
@@ -56,7 +77,7 @@
         </div>
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
             <ul
-                class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
+                class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                 <li>
                     <a href="/"
                         class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0"
@@ -69,13 +90,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/"
+                    <a href="{{ route("category.index") }}"
                         class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">
                         Catégories
                     </a>
                 </li>
                 <li>
-                    <a href="/contact"
+                    <a href="{{ route("contact.create") }}"
                         class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">
                         Contact
                     </a>

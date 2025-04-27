@@ -67,8 +67,11 @@
                 </div>
 
                 <!-- Actions -->
-                <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-3 sm:space-y-0">
-                    <button
+                <form action="{{ route('cart.add', $product->id) }}" method="POST" class="flex flex-col sm:flex-row sm:space-x-4 space-y-3 sm:space-y-0">
+                    @csrf
+                    <input id="quantity" name="quantity" type="number" value="1" min="1"
+                        class="w-20 p-2 text-center border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white" />
+                    <button type="submit"
                         class="w-full inline-flex justify-center items-center px-5 py-3 border border-transparent text-sm font-medium rounded-lg bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 text-white">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path d="M3 3h2l.4 2M7 13h10l4-8H5.4"></path>
@@ -85,8 +88,7 @@
                         </svg>
                         Ajouter aux favoris
                     </button>
-                    <input id="quantity" type="number" value="1" min="1" class="w-20 p-2 text-center border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white" />
-                </div>
+                </form>
 
                 <!-- Livraison & Retours -->
                 <div class="text-sm text-gray-600">

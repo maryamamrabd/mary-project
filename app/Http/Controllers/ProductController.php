@@ -2,24 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
 
 class ProductController extends Controller
 {
-       // Show all products
-    public function index()
+
+    public function index(Request $request)
     {
-        $products = Product::all();
-        return view('products.index', compact('products')); // Ensure 'resources/views/products/index.blade.php' exists
+        $query = Product::with(['images', 'category'])->orderByDesc('updated_at');
+
+        if ($request->category) {
+            $query->where('category_id', $request->category);
+        }
+
+        if ($request->min_price && $request->max_price) {
+            $query->whereBetween('price', [$request->min_price, $request->max_price]);
+        }
+
+        $products = $query->paginate(9);
+        $categories = Category::all();
+
+        return view('welcome', compact('products', 'categories'));
     }
+
 
     // Show a single product by ID
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.show', compact('product')); // Ensure 'resources/views/products/show.blade.php' exists
+        $title = $product->name;
+        $categories = Category::paginate(6);
+        return view('products.show', compact('product', 'title', 'categories'));
     }
 
     // Show the form to create a new product

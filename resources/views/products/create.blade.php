@@ -102,7 +102,7 @@
                 font-size: 14px;
                 padding: 10px 15px;
             }
-        }
+        }      
     </style>
 </head>
 <body>

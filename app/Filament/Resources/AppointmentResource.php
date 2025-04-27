@@ -17,7 +17,7 @@ class AppointmentResource extends Resource
 {
     protected static ?string $model = Appointment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-calendar';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar';// Katdir icône calendar f menu (sidebar) dyal admin.
 
     public static function form(Form $form): Form
     {
@@ -27,9 +27,9 @@ class AppointmentResource extends Resource
                     ->relationship('user', 'id')
                     ->required(),
                 Forms\Components\DateTimePicker::make('appointment_date')
-                    ->required(),
+                    ->required(),//Picker bach t5tar date + heure dyal lrdv
                 Forms\Components\TextInput::make('status')
-                    ->required(),
+                    ->required(),// Champs "statut" dyal lrdv : ex. "en attente", "confirmé", "annulé
                 Forms\Components\Textarea::make('notes')
                     ->columnSpanFull(),
             ]);

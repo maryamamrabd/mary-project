@@ -19,6 +19,9 @@ class AppointmentController extends Controller
 
     public function create()
     {
+        if (!auth()->user()) {
+            return redirect(route('login'));
+        }
         return view('appointments.create');
     }
 
@@ -27,6 +30,10 @@ class AppointmentController extends Controller
 
     public function store(Request $request)
     {
+        if (!auth()->user()) {
+            return redirect(route('login'));
+        }
+
         $request->validate([
             'appointment_date' => 'required|date',
             'notes' => 'nullable|string',

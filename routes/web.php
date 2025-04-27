@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AdviceController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 
 // Home Route
@@ -29,10 +30,17 @@ Route::post('/login', [AuthController::class, 'loginStore'])->name('login.store'
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
+// Category Reoutes
+
+Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
+Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
+
+
 // Product Routes
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create'); // Ensure 'create' method exists
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show'); // Ensure 'show' method exists
-Route::get('/products/filter', [ProductController::class, 'filter'])->name('products.filter'); // Ensure 'filter' method exists
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/filter', [ProductController::class, 'filter'])->name('products.filter');
 
 // Cart Routes
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -44,14 +52,14 @@ Route::post('/cart/process', [CartController::class, 'process'])->name('cart.pro
 Route::get('/cart/confirmation/{rowId}', [CartController::class, 'confirmation'])->name('cart.confirmation');
 
 // Order Routes
-Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout'); // Ensure 'checkout' method exists
+Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 
 // Appointment Routes
-Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index'); // Ensure 'index' method exists
-Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store'); // Ensure 'store' method exists
+Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
 
 // Advice Routes
-Route::get('/advice', [AdviceController::class, 'index'])->name('advice.index'); // Ensure 'index' method exists
+Route::get('/advice', [AdviceController::class, 'index'])->name('advice.index');
 
 
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');

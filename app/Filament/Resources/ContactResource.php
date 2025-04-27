@@ -19,6 +19,11 @@ class ContactResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
+    public static function getModelLabel(): string
+    {
+        return "Messages";
+    }
+
     public static function form(Form $form): Form
     {
         return $form

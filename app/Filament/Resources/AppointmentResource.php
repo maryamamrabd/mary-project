@@ -19,6 +19,11 @@ class AppointmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
 
+    public static function getModelLabel(): string
+    {
+        return "Rendez-vous";
+    }
+
     public static function form(Form $form): Form
     {
         return $form

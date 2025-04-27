@@ -56,7 +56,10 @@ Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout')
 
 // Appointment Routes
 Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
 Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
+
+
 
 // Advice Routes
 Route::get('/advice', [AdviceController::class, 'index'])->name('advice.index');

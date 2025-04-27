@@ -8,18 +8,37 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        return view('appointments.index');
+        if(!auth()->user()){
+            return redirect(route('login'));
+        }
+
+
+        $appointments = Appointment::where('user_id', auth()->id())->orderBy('appointment_date', 'asc')->get();
+        return view('appointments.index', compact('appointments'));
     }
+
+    public function create()
+    {
+        return view('appointments.create');
+    }
+
+
+
 
     public function store(Request $request)
     {
         $request->validate([
-            'date' => 'required|date|after:today',
-            'time' => 'required',
+            'appointment_date' => 'required|date',
+            'notes' => 'nullable|string',
         ]);
 
-        Appointment::create($request->all());
 
-        return redirect()->route('appointments.index')->with('success', 'Appointment booked successfully.');
+        Appointment::create([
+            'user_id' => auth()->id(),
+            'appointment_date' => $request->appointment_date,
+            'notes' => $request->notes,
+        ]);
+
+        return redirect()->route('appointments.index')->with('success', 'Appointment created successfully.');
     }
 }

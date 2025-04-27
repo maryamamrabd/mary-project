@@ -83,11 +83,11 @@
                         class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0"
                         aria-current="page">Accueil</a>
                 </li>
+
                 <li>
-                    <a href="/about"
-                        class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">
-                        À propos
-                    </a>
+                    <a href="{{ route("appointments.index") }}" class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0"
+                        aria-current="page">Rendez-vous</a>
+                </li>
                 </li>
                 <li>
                     <a href="{{ route("category.index") }}"

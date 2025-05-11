@@ -29,13 +29,17 @@ class AppointmentResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'id')
+                    ->relationship('user', 'full_name')
+                    ->label('Utilisateur')
                     ->required(),
                 Forms\Components\DateTimePicker::make('appointment_date')
-                    ->required(),//Picker bach t5tar date + heure dyal lrdv
+                    ->label('Date du Rendez-vous')
+                    ->required(),
                 Forms\Components\TextInput::make('status')
-                    ->required(),// Champs "statut" dyal lrdv : ex. "en attente", "confirmé", "annulé
+                    ->label('Statut')
+                    ->required(),
                 Forms\Components\Textarea::make('notes')
+                    ->label('Notes')
                     ->columnSpanFull(),
             ]);
     }
@@ -44,18 +48,24 @@ class AppointmentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.id')
+                Tables\Columns\TextColumn::make('user.full_name')
+                    ->label('Utilisateur')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('appointment_date')
+                    ->label('Date du Rendez-vous')
                     ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->label('Statut'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Créé le')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Mis à jour le')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -72,6 +82,7 @@ class AppointmentResource extends Resource
                 ]),
             ]);
     }
+
 
     public static function getRelations(): array
     {

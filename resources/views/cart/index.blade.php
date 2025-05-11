@@ -93,8 +93,8 @@
                     <tfoot>
                         <tr class="bg-gray-50">
                             <td colspan="2" class="px-6 py-4 text-right font-bold">Total</td>
-                            <td class="px-6 py-4 text-sm font-bold text-gray-900">{{
-                                number_format(Gloudemans\Shoppingcart\Facades\Cart::total(), 2) }} MAD</td>
+                        
+                            <td class="px-6 py-4 text-sm font-bold text-gray-900">{{number_format(intval(Gloudemans\Shoppingcart\Facades\Cart::total()), 2) }} MAD</td>
                             <td></td>
                         </tr>
                     </tfoot>

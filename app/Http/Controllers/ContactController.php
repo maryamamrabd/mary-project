@@ -24,6 +24,6 @@ class ContactController extends Controller
 
         Contact::create($validated);
 
-        return redirect()->back()->with('success', 'Your message has been sent successfully!');
+        return redirect()->back()->with('success', 'Votre message a été envoyé avec succès!');
     }
 }

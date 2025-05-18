@@ -35,7 +35,12 @@ class AppointmentResource extends Resource
                 Forms\Components\DateTimePicker::make('appointment_date')
                     ->label('Date du Rendez-vous')
                     ->required(),
-                Forms\Components\TextInput::make('status')
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'En attente' => 'En attente',
+                        'Confirmé' => 'Confirmé',
+                        'Annulé' => 'Annulé'
+                    ])
                     ->label('Statut')
                     ->required(),
                 Forms\Components\Textarea::make('notes')

@@ -42,7 +42,7 @@ class AuthController extends Controller
             return redirect()->route('products.index');
         }
 
-        return back()->withErrors(['email' => 'Invalid credentials.']);
+        return back()->withErrors(['email' => "L'adresse e-mail ou le mot de passe est incorrect."]);
     }
 
     public function logout()

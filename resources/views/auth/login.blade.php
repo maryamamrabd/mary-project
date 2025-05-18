@@ -5,6 +5,10 @@
     <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-md">
         <h2 class="text-2xl font-bold mb-6 text-center">Se connecter à votre compte</h2>
 
+        @error('email')
+        <div class="text-md my-1 p-2 bg-red-100 text-red-600 border border-red-500">{{ $message }}</div>
+        @enderror
+
         @if(session('error'))
         <div class="mb-4 text-red-600">{{ session('error') }}</div>
         @endif
@@ -14,7 +18,7 @@
 
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input id="email" type="email" name="email" required autofocus
+                <input id="email" type="email" name="email" value="{{ old("email") }}" required autofocus
                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
 

@@ -10,7 +10,7 @@
         @endif
 
         <form method="POST" action="{{ route('login.store') }}" class="space-y-5">
-
+            @csrf
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <input id="email" type="email" name="email" required autofocus

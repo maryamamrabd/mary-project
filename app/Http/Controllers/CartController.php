@@ -97,7 +97,7 @@ class CartController extends Controller
 
             'email' => $request->email,
             'phone' => $request->phone,
-            'total' => Cart::total() + 30.00,
+            'total' => Cart::total(),
             'city' => $request->city,
             'status' => 'En attente',
         ]);
